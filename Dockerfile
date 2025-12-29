@@ -14,6 +14,8 @@ RUN npm ci
 
 COPY . .
 
+RUN cd frontend && npm ci
+
 RUN npm run build
 
 RUN npm ci --only=production --ignore-scripts
