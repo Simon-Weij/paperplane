@@ -38,7 +38,7 @@ export class FileController {
     const tmpDir = tmpdir();
     const rand =
       Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
-    const location = join(tmpDir, rand, file.originalname as string);
+    const location = join(tmpDir, rand, file.originalname);
     console.log('Uploaded file:', file.originalname);
     console.log('Password:', body.password);
 
@@ -50,14 +50,14 @@ export class FileController {
 
     fs.mkdirSync(join(tmpDir, rand), { recursive: true });
     if (file.buffer) {
-      fs.writeFileSync(location, file.buffer as Buffer);
+      fs.writeFileSync(location, file.buffer);
     } else if (file.path) {
-      fs.copyFileSync(file.path as string, location);
+      fs.copyFileSync(file.path, location);
     }
 
     return {
       message: 'File uploaded successfully',
-      filename: file.originalname as string,
+      filename: file.originalname,
       baseUrl: `${baseUrl}/api/files/${rand}`,
     };
   }
